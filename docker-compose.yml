@@ -9,7 +9,7 @@ services:
       - POSTGRES_DB=trainerai_development
       - POSTGRES_PASSWORD=trainerai_DBpassWord
       - POSTGRES_INITDB_ARGS="--username=trainerai_user"
-      - DATABASE_URL=postgresql://trainerai_user:trainerai_DBpassWord@postgres:5432/trainerai?
+      - DATABASE_URL=postgresql://trainerai_user:trainerai_DBpassWord@postgres:5432/trainerai
   redis:
     image: redis
     command: redis-server
@@ -30,7 +30,7 @@ services:
       - POSTGRES_USER=trainerai_user
       - POSTGRES_DB=trainerai_development
       - POSTGRES_PASSWORD=trainerai_DBpassWord
-      - DATABASE_URL=postgresql://trainerai_user:trainerai_DBpassWord@postgres:5432/trainerai?
+      - DATABASE_URL=postgresql://trainerai_user:trainerai_DBpassWord@postgres:5432/trainerai
 
 volumes:
   redis:
