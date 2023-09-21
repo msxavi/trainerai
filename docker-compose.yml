@@ -1,11 +1,15 @@
 version: '3.5'
 services:
-  db:
+  postgres:
     image: postgres
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: password
+      - POSTGRES_USER=trainerai_user
+      - POSTGRES_DB=trainerai_development
+      - POSTGRES_PASSWORD=trainerai_DBpassWord
+      - POSTGRES_INITDB_ARGS="--username=trainerai_user"
+      - DATABASE_URL=postgresql://trainerai_user:trainerai_DBpassWord@postgres:5432/trainerai?
   redis:
     image: redis
     command: redis-server
@@ -19,17 +23,14 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - db
+      - postgres
       - redis
     environment:
       - REDIS_URL_CACHING=redis://redis:6379/0
       - POSTGRES_USER=trainerai_user
       - POSTGRES_DB=trainerai_development
       - POSTGRES_PASSWORD=trainerai_DBpassWord
-      - DB_HOST=db
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=password
-      - DATABASE_URL=postgresql://traineraiuser:traineraiDBpassWord@postgres:5432/trainerai?
+      - DATABASE_URL=postgresql://trainerai_user:trainerai_DBpassWord@postgres:5432/trainerai?
 
 volumes:
   redis:
